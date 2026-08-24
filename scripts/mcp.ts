@@ -1,2 +1,2 @@
-import { startMcpServer } from '../src/mcp/server.js';
-await startMcpServer();
+import { startExtendedMcpServer } from '../src/mcp/extended.js';
+await startExtendedMcpServer();
