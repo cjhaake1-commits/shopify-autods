@@ -2,11 +2,28 @@
 
 Build this repository into a secure, local-first AutoDS-to-Shopify sourcing bridge.
 
+## Standing autonomy policy for this repository
+
+The user has granted standing authorization for Codex to proceed autonomously on in-scope development work in this repository.
+
+For any prompt or task in this project:
+
+- Do not ask for permission before routine, non-destructive, in-scope development actions.
+- Treat reading files, inspecting logs, editing project code, creating project files, installing ordinary development dependencies, running package-manager commands, running tests, typechecking, linting, builds, local health checks, local services, browser-bridge diagnostics, Git status/diff operations, commits, and pushes of non-secret project code as pre-authorized when they are necessary to complete the requested task.
+- When a command fails, diagnose it, make a reasonable fix, and continue without asking the user to choose among ordinary engineering options.
+- Continue through implementation, validation, fixes, documentation, commit, and push rather than stopping after scaffolding or partial progress.
+- Prefer the supported Codex/client mechanism for persistent approval of routine command patterns when available.
+- Do not interpret this standing authorization as permission to bypass Codex, Windows, browser, Google, Shopify, AutoDS, GitHub, or other platform security controls. If the client or operating system presents a mandatory approval dialog that cannot be programmatically satisfied, surface only that specific unavoidable action.
+- Require the user's direct participation only for authentication/MFA/CAPTCHA, purchases or paid upgrades, acceptance of legal terms, destructive actions outside the repository or scope, access to secrets the user must personally enter, or other actions that a platform explicitly requires a human to confirm.
+- Never weaken security settings merely to avoid an approval prompt.
+
+This autonomy policy is intended to minimize interruptions while preserving platform security boundaries.
+
 ## Non-negotiable requirements
 
 - Inspect the repository before editing.
 - Do not request, print, log, commit, or transmit AutoDS passwords, MFA codes, cookies, session tokens, Shopify credentials, payment information, or browser-profile data.
-- Authentication must occur manually by the user in a dedicated persistent Chrome/Edge profile stored in a gitignored local directory.
+- Authentication must occur manually by the user in a dedicated local Microsoft Edge profile/session stored in a gitignored local directory; the bridge should attach through loopback-only CDP rather than perform Google OAuth inside a Playwright-launched browser.
 - Begin READ-ONLY. Do not import, order, purchase, change supplier settings, change store settings, or modify AutoDS data until a later explicit phase.
 - Prefer documented/stable AutoDS interfaces if discoverable from the authenticated session. If browser automation is required, isolate selectors/adapters and fail safely when the UI changes.
 - Bind the local service to 127.0.0.1 by default. Do not expose it publicly and do not create tunnels automatically.
@@ -20,7 +37,7 @@ Use a maintainable TypeScript/Node implementation unless the existing repository
 Create commands/endpoints for:
 
 - health/status
-- launch/open authenticated AutoDS browser profile
+- launch/open dedicated normal Microsoft Edge with loopback-only CDP
 - detect whether AutoDS is authenticated without exposing session material
 - list AutoDS-managed stores where available
 - list/search AutoDS catalog products where available
@@ -52,7 +69,7 @@ Initial economics: target approximately 60% gross margin before advertising. Mak
 - `.env.example` containing only non-secret placeholders
 - secure `.gitignore`
 - README with Windows/VS Code setup and exact run commands
-- browser-profile launcher
+- normal Edge/CDP launcher
 - local API/CLI
 - schemas/types for normalized AutoDS product data
 - margin/ranking module
@@ -66,7 +83,7 @@ Initial economics: target approximately 60% gross margin before advertising. Mak
 - Fresh clone installs successfully.
 - CI passes without secrets.
 - Local service binds only to loopback by default.
-- User can launch the dedicated browser, manually authenticate, and retain the session locally.
+- User can launch the dedicated normal Edge profile, manually authenticate, and retain the session locally.
 - Health endpoint clearly reports unauthenticated/authenticated state.
 - Read-only product extraction returns normalized JSON when AutoDS is available.
 - MOTORYN candidate ranking produces landed-cost and gross-margin calculations.
