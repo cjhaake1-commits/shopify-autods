@@ -22,6 +22,10 @@
     "mcp:health": "node --import tsx/esm scripts/mcp-health.ts",
     "mcp:inspect": "npx @modelcontextprotocol/inspector",
     "social:reports": "node --import tsx/esm scripts/social-reports.ts",
+    "command-center": "node --import tsx/esm scripts/command-center.ts",
+    "command-center:status": "node --import tsx/esm scripts/command-center-status.ts",
+    "command-center:stop": "node --import tsx/esm scripts/command-center.ts stop",
+    "reports:omnifinda": "node --import tsx/esm scripts/omnifinda-reports.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests scripts --ext .ts"

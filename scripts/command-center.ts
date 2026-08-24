@@ -1,0 +1,2 @@
+import { execFileSync } from 'node:child_process'; import { startMcpServer } from '../src/mcp/server.js';
+const mode=process.argv[2]??'start'; if(mode==='status'){execFileSync('npm.cmd',['run','command-center:status'],{stdio:'inherit'});process.exit(0)} if(mode==='stop'){console.log('Stop project-owned processes manually with Ctrl+C in their terminals; no broad process termination is performed.');process.exit(0)} try{execFileSync('npm.cmd',['run','edge:cdp'],{stdio:'inherit'})}catch{} await startMcpServer();
