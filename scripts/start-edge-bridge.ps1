@@ -1,7 +1,9 @@
-param([int]$Port = [int]($env:EDGE_CDP_PORT ?? 9222), [string]$Url = ($env:AUTODS_URL ?? 'https://app.autods.com'))
+param([int]$Port = 9222, [string]$Url = 'https://app.autods.com')
 $ErrorActionPreference = 'Stop'
+if ($env:EDGE_CDP_PORT) { $Port = [int]$env:EDGE_CDP_PORT }
+if ($env:AUTODS_URL) { $Url = $env:AUTODS_URL }
 $edge = @(
-  "$env:ProgramFiles(x86)\Microsoft\Edge\Application\msedge.exe",
+  "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe",
   "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe"
 ) | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -First 1
 if (-not $edge) { throw 'Microsoft Edge was not found. Install normal Microsoft Edge, then run npm run edge:cdp.' }

@@ -4,7 +4,7 @@ import os from 'node:os';
 import { isWindowsHost, windowsHostMessage } from '../security/environment.js';
 
 export const DEFAULT_CDP_ENDPOINT = 'http://127.0.0.1:9222';
-export const AUTODS_HOST = 'app.autods.com';
+export const AUTODS_HOSTS = ['app.autods.com', 'platform.autods.com'];
 
 export class BrowserManager {
   browser: Browser | null = null;
@@ -30,9 +30,9 @@ export class BrowserManager {
     return this.page;
   }
 
-  findAutoDSTab() { return this.context?.pages().find(p => { try { return new URL(p.url()).hostname.endsWith(AUTODS_HOST); } catch { return false; } }) ?? null; }
+  findAutoDSTab() { return this.context?.pages().find(p => { try { return AUTODS_HOSTS.some(host => new URL(p.url()).hostname === host || new URL(p.url()).hostname.endsWith(`.${host}`)); } catch { return false; } }) ?? null; }
   async ensureAttached() { return this.page?.isClosed() ? this.attach() : (this.page ?? this.attach()); }
   async close() { this.browser?.close(); this.browser = null; this.context = null; this.page = null; }
-  authenticated() { const page = this.findAutoDSTab() ?? this.page; const u = page?.url() ?? ''; return !!page && new URL(u).hostname.endsWith(AUTODS_HOST) && !/login|signin|auth/i.test(new URL(u).pathname); }
+  authenticated() { const page = this.findAutoDSTab() ?? this.page; const u = page?.url() ?? ''; return !!page && AUTODS_HOSTS.some(host => new URL(u).hostname === host || new URL(u).hostname.endsWith(`.${host}`)) && !/login|signin|auth/i.test(new URL(u).pathname); }
   status() { return { cdp_reachable: !!this.browser, edge_reachable: !!this.context, autods_tab_found: !!this.findAutoDSTab(), autods_authenticated: this.authenticated() }; }
 }
