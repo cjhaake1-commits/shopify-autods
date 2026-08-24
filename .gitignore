@@ -9,6 +9,7 @@ __pycache__/
 .DS_Store
 .vscode/settings.json
 browser-profile/
+.local/
 playwright/.auth/
 .auth/
 sessions/

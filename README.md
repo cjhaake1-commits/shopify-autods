@@ -21,7 +21,19 @@ Local-first bridge for connecting an authenticated AutoDS browser session with S
 7. Check status with `npm run health`; generate local reports with `npm run reports`.
 8. Verify with `npm run typecheck && npm test`.
 
-The current reader is deliberately read-only and returns empty datasets until an authenticated AutoDS adapter is available. Unknown fields remain `null` with provenance `unknown`; no supplier data is fabricated. Browser state is stored in the ignored `browser-profile/` directory.
+Codespaces/Linux is the development and CI environment only. Live browser authentication and AutoDS extraction run on the Windows host using Microsoft Edge; `edge:login` refuses to run on Linux and never downloads Chromium.
+
+On the Windows laptop, from a local checkout:
+
+```powershell
+npm ci
+npm run edge:login
+# complete AutoDS login manually in the opened Edge window
+npm run bridge
+npm run health
+```
+
+The bridge uses Playwright `channel: "msedge"` with a dedicated persistent profile at `.local/edge-autods-profile`. It never uses or touches normal Chrome/Edge profiles. The current reader is deliberately read-only and returns empty datasets until an authenticated AutoDS adapter is available. Unknown fields remain `null` with provenance `unknown`; no supplier data is fabricated.
 
 ## Security
 

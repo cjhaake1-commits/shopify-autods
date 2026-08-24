@@ -10,6 +10,7 @@
     "bridge:built": "node dist/src/index.js",
     "bridge:dev": "node --import tsx/esm --watch src/index.ts",
     "browser:login": "node --import tsx/esm scripts/browser-login.ts",
+    "edge:login": "node --import tsx/esm scripts/browser-login.ts",
     "health": "node --import tsx/esm scripts/health.ts",
     "reports": "node --import tsx/esm scripts/reports.ts",
     "test": "vitest run",
