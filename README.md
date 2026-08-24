@@ -16,10 +16,10 @@ Local-first bridge for connecting an authenticated AutoDS browser session with S
 2. Copy `.env.example` to `.env` if local configuration is needed. Never commit `.env`.
 3. Install dependencies: `npm ci`.
 4. Start the loopback API: `npm run bridge` (defaults to `http://127.0.0.1:8787`).
-5. Launch the dedicated persistent browser: `npm run browser:login`.
+5. On Windows, launch normal Edge with the dedicated CDP profile: `npm run edge:cdp`.
 6. Sign into AutoDS manually in that browser and complete MFA yourself.
-7. Check status with `npm run health`; generate local reports with `npm run reports`.
-8. Verify with `npm run typecheck && npm test`.
+7. Check status with `npm run edge:status`; start the bridge with `npm run bridge`.
+8. Generate local reports with `npm run reports` and verify with `npm run typecheck && npm test`.
 
 Codespaces/Linux is the development and CI environment only. Live browser authentication and AutoDS extraction run on the Windows host using Microsoft Edge; `edge:login` refuses to run on Linux and never downloads Chromium.
 
@@ -27,13 +27,14 @@ On the Windows laptop, from a local checkout:
 
 ```powershell
 npm ci
-npm run edge:login
+npm run edge:cdp
 # complete AutoDS login manually in the opened Edge window
+npm run edge:status
 npm run bridge
 npm run health
 ```
 
-The bridge uses Playwright `channel: "msedge"` with a dedicated persistent profile at `.local/edge-autods-profile`. It never uses or touches normal Chrome/Edge profiles. The current reader is deliberately read-only and returns empty datasets until an authenticated AutoDS adapter is available. Unknown fields remain `null` with provenance `unknown`; no supplier data is fabricated.
+The bridge attaches with Playwright `chromium.connectOverCDP` to a normal installed Microsoft Edge process using `.local/edge-autods-profile`. It never launches an authenticated browser through Playwright, touches Chrome, or uses an ordinary Edge profile. The CDP endpoint is loopback-only. If the endpoint is unavailable, run `npm run edge:cdp`; the bridge never silently launches Chromium.
 
 ## Security
 

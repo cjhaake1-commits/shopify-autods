@@ -1,1 +1,2 @@
-import {it,expect} from 'vitest'; import fs from 'node:fs'; it('uses dedicated Edge profile and channel',()=>{const s=fs.readFileSync('src/browser/manager.ts','utf8');expect(s).toContain("channel:'msedge'");expect(fs.readFileSync('scripts/browser-login.ts','utf8')).toContain('.local/edge-autods-profile');});
+import {it,expect} from 'vitest'; import fs from 'node:fs';
+it('uses CDP attach and loopback-only dedicated profile',()=>{const s=fs.readFileSync('src/browser/manager.ts','utf8'); expect(s).toContain('connectOverCDP'); expect(s).toContain('127.0.0.1:9222'); const launcher=fs.readFileSync('scripts/start-edge-bridge.ps1','utf8'); expect(launcher).toContain('--remote-debugging-address=127.0.0.1'); expect(launcher).toContain('.local\\edge-autods-profile');});
