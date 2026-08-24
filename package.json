@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "bridge": "node --import tsx/esm src/index.ts",
@@ -16,10 +18,28 @@
     "health": "node --import tsx/esm scripts/health.ts",
     "reports": "node --import tsx/esm scripts/reports.ts",
     "reports:stores": "node --import tsx/esm scripts/store-reports.ts",
+    "mcp": "node --import tsx/esm scripts/mcp.ts",
+    "mcp:health": "node --import tsx/esm scripts/mcp-health.ts",
+    "mcp:inspect": "npx @modelcontextprotocol/inspector",
+    "social:reports": "node --import tsx/esm scripts/social-reports.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests scripts --ext .ts"
   },
-  "dependencies": { "@fastify/cors": "^10.0.2", "fastify": "^5.2.1", "playwright": "^1.51.1", "zod": "^3.24.2" },
-  "devDependencies": { "@types/node": "^22.13.4", "@typescript-eslint/eslint-plugin": "^8.24.0", "@typescript-eslint/parser": "^8.24.0", "eslint": "^9.21.0", "tsx": "^4.19.3", "typescript": "^5.7.3", "vitest": "^3.0.7" }
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "fastify": "^5.2.1",
+    "playwright": "^1.51.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
+    "eslint": "^9.21.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
 }

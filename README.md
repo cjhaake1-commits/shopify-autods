@@ -42,4 +42,19 @@ Do not commit passwords, API keys, cookies, browser user-data directories, Shopi
 
 ## Current status
 
-Repository bootstrap complete. Application scaffold and AutoDS selectors/API discovery should be completed and tested locally because AutoDS authentication occurs on the user's machine.
+## MCP / ChatGPT
+
+The read-only MCP server uses the official TypeScript MCP SDK and Streamable HTTP at `http://127.0.0.1:8788/mcp`. Start it with:
+
+```powershell
+npm run edge:cdp
+# complete AutoDS login manually if prompted
+npm run mcp
+npm run social:reports
+```
+
+The MCP smoke-tested tools include `list_stores`, `get_store_products`, `get_product`, `search_autods`, `search_automotive_products`, `calculate_product_economics`, `rank_candidates`, `get_product_audit`, `get_store_strategy`, `health`, `search`, and `fetch`. No write or browser-control tools are registered. Set `MCP_REQUIRE_AUTH=true` and provide `MCP_SHARED_SECRET` through local environment/OS secret storage before any tunnel use.
+
+For private ChatGPT developer-mode access, current OpenAI documentation recommends Secure MCP Tunnel: create/manage a tunnel in Platform tunnel settings, run the downloaded `tunnel-client` on this Windows host pointing only at `http://127.0.0.1:8788/mcp`, then in ChatGPT developer-mode app creation choose Tunnel. The tunnel requires a user-created tunnel ID and runtime API key; those are intentionally not requested, stored, or committed by this repository. See the official [MCP server guidance](https://developers.openai.com/plugins/build/mcp-server) and [Secure MCP Tunnel guidance](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels).
+
+The social layer is adapter-first and review-only. `src/social/` contains platform-neutral models, brand/account registry, official-API adapter boundaries, draft generation, and capability reports. No social account is marked connected until OAuth and an authenticated official API read succeed; no social publishing or autonomous replies are enabled.

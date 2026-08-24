@@ -1,0 +1,2 @@
+import type { SocialPlatform } from './models.js'; export interface SocialAdapter { platform:SocialPlatform; discover():Promise<unknown>; listPosts():Promise<unknown[]>; analytics():Promise<unknown>; createDraft(input:unknown):Promise<unknown>; publish?(input:unknown):Promise<unknown>; }
+export const officialApiStatus=Object.fromEntries((['meta','instagram','facebook','tiktok','youtube','pinterest','x'] as SocialPlatform[]).map(platform=>[platform,{connected:false,status:'NOT_CONNECTED',reason:'OAuth and authenticated official API read not configured.'}]));
