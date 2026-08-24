@@ -1,0 +1,2 @@
+import type { AutoDSProduct } from '../models/types.js'; import { normalizeAutoDS } from './normalize.js';
+export class AutoDSReader { constructor(private pageProvider:()=>import('playwright').Page|null){} async stores(){return [] as {id:string;name:string}[]} async products(){return [] as AutoDSProduct[]} async search(q:string){const products=await this.products(); return products.filter(p=>p.title.toLowerCase().includes(q.toLowerCase()));} }

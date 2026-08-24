@@ -1,0 +1,1 @@
+import {it,expect} from 'vitest'; import {normalizeAutoDS} from '../src/autods/normalize.js'; it('normalizes unknowns',()=>{const p=normalizeAutoDS({id:3,title:'Vacuum',sourceCost:9});expect(p.id).toBe('3');expect(p.shippingCost.value).toBeNull();expect(p.sourceCost.provenance).toBe('autods');});

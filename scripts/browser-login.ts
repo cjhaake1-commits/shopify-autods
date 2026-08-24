@@ -1,0 +1,1 @@
+import { BrowserManager } from '../src/browser/manager.js'; const b=new BrowserManager(); await b.launch(); console.log('Browser opened. Complete AutoDS login manually; session remains in ignored browser-profile/.');

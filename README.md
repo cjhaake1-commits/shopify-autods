@@ -14,10 +14,14 @@ Local-first bridge for connecting an authenticated AutoDS browser session with S
 
 1. Clone/open this repository in Visual Studio Code.
 2. Copy `.env.example` to `.env` if local configuration is needed. Never commit `.env`.
-3. Install dependencies after the application scaffold is completed by Codex.
-4. Launch the dedicated persistent browser profile from the bridge.
-5. Sign into AutoDS manually in that browser and complete MFA yourself.
-6. Run the bridge health check and read-only catalog tests.
+3. Install dependencies: `npm ci`.
+4. Start the loopback API: `npm run bridge` (defaults to `http://127.0.0.1:8787`).
+5. Launch the dedicated persistent browser: `npm run browser:login`.
+6. Sign into AutoDS manually in that browser and complete MFA yourself.
+7. Check status with `npm run health`; generate local reports with `npm run reports`.
+8. Verify with `npm run typecheck && npm test`.
+
+The current reader is deliberately read-only and returns empty datasets until an authenticated AutoDS adapter is available. Unknown fields remain `null` with provenance `unknown`; no supplier data is fabricated. Browser state is stored in the ignored `browser-profile/` directory.
 
 ## Security
 

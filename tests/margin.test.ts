@@ -1,0 +1,1 @@
+import {describe,it,expect} from 'vitest'; import {landedCost,grossProfit,grossMargin} from '../src/scoring/margin.js'; describe('margin',()=>{it('calculates',()=>{expect(landedCost(10,2)).toBe(12);expect(grossProfit(30,12)).toBe(18);expect(grossMargin(30,12)).toBe(.6)});it('handles missing',()=>expect(landedCost(null,2)).toBeNull());});

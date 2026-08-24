@@ -16,3 +16,6 @@ cookies/
 secrets/
 logs/
 *.log
+var/
+dist/
+test-results/
